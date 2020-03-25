@@ -14,10 +14,11 @@
 
     <form [formGroup]="postalcodeForm" (ngSubmit)="order(postalcodeForm.value)" class="form">
         <h1 style="color:white;text-align:center;font-size:2.2em;padding-bottom:15px;">Bestel de lekkerste pannekoekies<br> bij Starcourt!</h1>
-        <input type="text" name="postalcode" isPostalcode ngModel formControlName="postalcode"  class="form__field" placeholder="Voer uw postcode in."  [ngClass]="{ 'is-invalid': submitted && getForm.postalcode.errors }" />
-          <div *ngIf="submitted && getForm.postalcode.errors" class="invalid-feedback invalid-home">
+        <input type="text" name="postalcode" isPostalcode ngModel formControlName="postalcode"  class="form__field" placeholder="Voer uw postcode in."  [ngClass]="{ 'is-invalid': getForm.postalcode.errors, 'is-valid':!getForm.postalcode.errors }" />
+          <div *ngIf="getForm.postalcode.errors" class="invalid-feedback invalid-home">
             <div *ngIf="getForm.postalcode.errors?.postalcodeError">Geen geldig postocde!</div>
-            <div *ngIf="getForm.postalcode.errors?.required">Postcode is verplicht!</div>
+            <div *ngIf="getForm.postalcode.errors?.required  && postalcodeForm.dirty && postalcodeForm.value.length > 0">Postcode is verplicht!</div>
+            <div *ngIf="getForm.postalcode.errors?.unkownPostalCode">Helaas wij leveren niet aan deze postcode!</div>
           </div>
         <button type="submit" class="btn btn--primary btn--inside uppercase">Bestellen!</button>
     </form>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import { Validators } from '@angular/forms';
 
 @Component({
@@ -31,10 +31,10 @@ export class LoginComponent implements OnInit {
     console.log('Your order has been submitted', loginData);
     // stop here if form is invalid
     if (this.loginForm.invalid) {
-      console.log('login is invalide');
       return;
     }
 
   }
+
 
 }
