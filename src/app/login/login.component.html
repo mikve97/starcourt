@@ -1,0 +1,41 @@
+<div class="login_full">
+  <div class="page-brand-info">
+    <div class="brand">
+      <img class="brand-img" src="../../assets/star_court_logo.png" alt="...">
+      <h2 class="brand-text font-size-40">Starcourt</h2>
+    </div>
+    <p class="font-size-20">Starcourt het lekkerste pannekoekie restaurant van Nederland! Neem gerust een kijkje in ons klanten portaal, vergeet je niet eerst aan te melden.</p>
+  </div>
+  <div class="page-login-main animation-slide-right animation-duration-1">
+    <h3 class="font-size-24">Login</h3>
+    <p>Om verder te gaan dient u in te loggen.</p>
+
+    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+      <div class="form-group">
+        <label class="sr-only" for="inputEmail">Email</label>
+        <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email"  ngModel email="true" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && getForm.email.errors }">
+        <div *ngIf="submitted && getForm.email.errors" class="invalid-feedback">
+          <div *ngIf="getForm.email.errors.required">E-mail is verplicht!</div>
+          <div *ngIf="getForm.email.errors.email">E-mail adres moet valide zijn!</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="sr-only" for="inputPassword">Password</label>
+        <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && getForm.password.errors }">
+        <div *ngIf="submitted && getForm.password.errors" class="invalid-feedback">
+          <div *ngIf="getForm.password.errors.required">Wachtwoord is verplicht!</div>
+          <div *ngIf="getForm.password.errors.minlength">Het wachtwoord moet 6 karakters zijn!</div>
+        </div>
+      </div>
+      <button type="submit" class="btn btn-primary btn-block">Aanmelden</button>
+    </form>
+
+
+    <p>Geen account? <a href="#">Meld u aan!</a></p>
+
+    <footer class="page-copyright">
+      <p>Shop by: Mike van Es</p>
+      <p>© 2020. All RIGHT RESERVED.</p>
+    </footer>
+  </div>
+</div>
