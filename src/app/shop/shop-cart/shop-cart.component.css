@@ -80,7 +80,7 @@
 .order-total button{
   background-color: #00afed;
   border-color: #00afed;
-  height: 6.5vh;
+  height: 50px;
   font-size: 1.5rem;
   transition: all 0.2s ease-in-out;
 }

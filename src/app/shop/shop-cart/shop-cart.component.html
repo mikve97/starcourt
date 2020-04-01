@@ -30,9 +30,9 @@
     <section class="order-total">
       <p>
         <span class='total-text'>Totaal </span>
-        <span class="total-price">€5,00</span>
+        <span class="total-price">€{{getTotalPrice()}}</span>
       </p>
-      <button type="submit" class="btn btn-primary btn-block">Bestellen</button>
+      <button [disabled]="isEmpty"  type="submit" class="btn btn-primary btn-block">Bestellen</button>
     </section>
   </section>
 </div>

@@ -6,23 +6,26 @@ import {ProductModel} from './product.model';
 })
 export class ShopService {
   public productChanged = new Subject<ProductModel[]>();
-  private productArray: ProductModel[] = [];
+  private productArray = [];
   constructor() { }
 
   public addProduct(productModel: ProductModel) {
+    let productFound = false;
     if (this.productArray.length > 0) {
       for ( let product of this.productArray) {
         if ( product.getProductId() === productModel.getProductId()) {
           product.addAmount();
+          productFound = true;
         }
       }
-    } else {
+    }
+
+    if (!productFound) {
       this.productArray.push(productModel);
     }
 
-
     //update basker
-    this.productChanged.next(this.productArray.slice());
+    this.productChanged.next(this.productArray);
   }
 
   public addProductById(productId){
@@ -35,18 +38,18 @@ export class ShopService {
     }
 
     //Update basket
-    this.productChanged.next(this.productArray.slice());
+    this.productChanged.next(this.productArray);
   }
 
   public removeProductById(productId){
     if (this.productArray.length > 0) {
-      for ( let product of this.productArray) {
-        if ( product.getProductId() === productId) {
-          product.substractAmount();
+      for ( let i = 0; i < this.productArray.length; i++) {
+        if ( this.productArray[i].getProductId() === productId) {
+          this.productArray[i].substractAmount();
 
           //Remove product if the amount is 0
-          if (product.getProductAmount() === 0){
-            this.productArray.pop();
+          if (this.productArray[i].getProductAmount() === 0) {
+            this.productArray.splice(i,i + 1);
           }
 
         }
@@ -54,7 +57,7 @@ export class ShopService {
     }
 
     //Update basket
-    this.productChanged.next(this.productArray.slice());
+    this.productChanged.next(this.productArray);
   }
 
 }

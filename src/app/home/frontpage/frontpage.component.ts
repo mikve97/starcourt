@@ -12,7 +12,7 @@ import {Router} from '@angular/router';
 export class FrontpageComponent implements OnInit {
   private postalcodeForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private pcService: PostalcodeService, private router: Router,) {
+  constructor(private formBuilder: FormBuilder, private pcService: PostalcodeService, private router: Router) {
 
 
   }
@@ -22,9 +22,10 @@ export class FrontpageComponent implements OnInit {
 
   ngOnInit() {
     this.postalcodeForm = this.formBuilder.group({
-      postalcode: ['', Validators.required]
+      postalcode: ['', Validators.required, this.postalCodeCheck.bind(this)]
     });
   }
+
   public order(postalcode) {
     // stop here if form is invalid
     if (this.postalcodeForm.invalid) {
