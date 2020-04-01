@@ -7,9 +7,7 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./shop-header.component.css']
 })
 export class ShopHeaderComponent implements OnInit {
-  public postalcode;
-  constructor( private activatedRoute: ActivatedRoute) {
-    this.postalcode = this.activatedRoute.snapshot.params.postalcode;
+  constructor( ) {
   }
 
   ngOnInit() {

@@ -1,0 +1,133 @@
+<div class="checkout-form-container">
+  <div class="row">
+    <div class="col-lg=4">
+    <h1>Nog even wachten.</h1>
+    </div>
+  </div>
+
+  <form>
+    <div class="row ">
+
+      <div class="col-lg-12 remove-padding form-subheading ">
+        <h3 class="form-subheading col-lg-8 remove-padding">Waar moet de bestellng naartoe?</h3>
+      </div>
+      <div class="col-lg-12 form-subheading ">
+        <div class="row">
+          <div class="col-lg-4 remove-padding">
+            <input type="text" class="form-control" [value]="postalCode" placeholder="Postcode*">
+          </div>
+          <div class="col-lg-4 remove-padding">
+            <input type="text" class="form-control" placeholder="Huisnummer*">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row ">
+
+      <div class="col-lg-12 remove-padding form-subheading ">
+        <h3 class="form-subheading col-lg-8 remove-padding">Hoe kunnen we je bereiken?</h3>
+      </div>
+
+      <div class="col-lg-12">
+        <div class="row">
+          <div class="col-lg-4 remove-padding">
+            <input type="text" class="form-control" placeholder="Naam*">
+          </div>
+          <div class="col-lg-4 remove-padding">
+            <input type="email" class="form-control" placeholder="Email*">
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-12 form-subheading ">
+        <div class="row">
+          <div class="col-lg-4 remove-padding">
+            <input type="number" class="form-control" placeholder="Telefoonnummer*">
+          </div>
+          <div class="col-lg-4 remove-padding">
+            <input type="text" class="form-control" placeholder="Bedrijfsnaam">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="row ">
+
+      <div class="col-lg-12 remove-padding form-subheading ">
+        <h3 class="form-subheading col-lg-8 remove-padding">Hoelaat wil je het eten geleverd hebben?</h3>
+      </div>
+
+      <div class="col-lg-12 form-subheading ">
+        <div class="row">
+          <div class="col-lg-4 remove-padding">
+            <select class="selectpicker form-control">
+              <option>Zo snel mogelijk</option>
+              <option>17:00</option>
+              <option>18:00</option>
+            </select>
+          </div>
+          <div class="col-lg-4 remove-padding">
+            <textarea class="form-control" placeholder="Opmerkingen"></textarea>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row ">
+
+      <div class="col-lg-12 remove-padding form-subheading ">
+        <h3 class="form-subheading col-lg-8 remove-padding">Wil je een account aanmaken?</h3>
+      </div>
+
+      <div class="col-lg-12 form-subheading ">
+        <div class="row">
+          <div class="col-lg-4 remove-padding">
+            <input type="text" class="form-control" placeholder="email">
+          </div>
+          <div class="col-lg-4 remove-padding">
+            <input type="password" class="form-control" placeholder="wachtwoord">
+          </div>
+          <small class="col-lg-12 remove-padding">
+            Als u deze velden invult en op bestellen drukt wordt het account aangemaakt. <br>
+            Door deze velden in te voeren gaat u automatisch akkoord met de voorwaarden.
+          </small>
+        </div>
+      </div>
+
+    </div>
+
+    <button type="submit" class="btn btn--primary btn--inside uppercase">Bestellen!</button>
+
+  </form>
+
+</div>
+
+
+<div class="order-overview">
+  <h2>Uw bestelling</h2>
+  <section class="order-items" *ngIf="products.length > 0">
+    <section class="item-row" *ngFor="let product of products ">
+      <div class="product-amount">
+        <small>{{product.getProductAmount()}}x</small>
+      </div>
+      <div class="product-text">
+        <span> {{product.getProductName()}} </span>
+        <span class="product-price">€ {{formatPrice(product.getTotalPrice())}} </span><br>
+        <small class="small-text">{{product.getProductDescr()}}</small>
+      </div>
+    </section>
+
+    <section class="order-total">
+      <p>
+        <span class='total-text'>Totaal </span>
+        <span class="total-price">€{{getTotalPrice}}</span>
+      </p>
+    </section>
+  </section>
+
+
+
+</div>
+

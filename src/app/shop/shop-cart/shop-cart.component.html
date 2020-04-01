@@ -2,7 +2,7 @@
   <section class="cart-floating">
     <section class="header">
       <h3>Je bestelling</h3>
-      <p>Wij bezorgen bij een bedrag vanaf € 15,00 (excl. bezorgkosten).</p>
+      <p>Wij bezorgen bij ieder bedag zonder bezorgkosten!</p>
     </section>
 
 
@@ -30,9 +30,9 @@
     <section class="order-total">
       <p>
         <span class='total-text'>Totaal </span>
-        <span class="total-price">€{{getTotalPrice()}}</span>
+        <span class="total-price">€{{getTotalPrice}}</span>
       </p>
-      <button [disabled]="isEmpty"  type="submit" class="btn btn-primary btn-block">Bestellen</button>
+      <button [disabled]="isEmpty"  (click)="checkout()" type="submit" class="btn btn-primary btn-block">Bestellen</button>
     </section>
   </section>
 </div>

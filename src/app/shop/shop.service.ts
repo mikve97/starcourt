@@ -60,4 +60,7 @@ export class ShopService {
     this.productChanged.next(this.productArray);
   }
 
+  public getProduct(){
+    return this.productArray;
+  }
 }

@@ -3,6 +3,7 @@ import {ShopService} from '../shop.service';
 import {Subscription} from 'rxjs';
 import {ProductModel} from '../product.model';
 import {formatCurrency} from '@angular/common';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -14,7 +15,11 @@ export class ShopCartComponent implements OnInit, OnDestroy {
   private shopSub: Subscription;
   public products: ProductModel[] = [];
   public isEmpty = true;
-  constructor(private shopService: ShopService) {}
+
+  private postalCode;
+  constructor(private shopService: ShopService,  private router: Router, private activatedRoute: ActivatedRoute) {
+    this.postalCode = this.activatedRoute.snapshot.params.postalcode;
+  }
 
 
   ngOnInit() {
@@ -63,7 +68,7 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     this.shopService.removeProductById(productId);
   }
 
-  public getTotalPrice(){
+  get getTotalPrice(){
     let totalPrice =  0;
     if(this.products.length > 0){
       for(let product of this.products){
@@ -72,6 +77,15 @@ export class ShopCartComponent implements OnInit, OnDestroy {
     }
 
     return this.formatPrice(totalPrice);
+  }
+
+  public checkout() {
+    // stop here if form is invalid
+    if (this.isEmpty) {
+      return;
+    } else {
+      this.router.navigate(['shop/checkout/' + this.postalCode]);
+    }
   }
 
 
