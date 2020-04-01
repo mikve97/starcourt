@@ -6,7 +6,8 @@ import {HomeModule} from './home/home.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {LoginModule} from './login/login.module';
 import {AppRoutingModule} from './app-routing.module';
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClientModule} from '@angular/common/http';
+import {ShopModule} from './shop/shop.module';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {HttpClientModule} from "@angular/common/http";
     AppRoutingModule,
     HomeModule,
     LoginModule,
+    ShopModule,
     BrowserAnimationsModule,
     HttpClientModule
 

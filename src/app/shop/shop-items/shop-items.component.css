@@ -1,0 +1,103 @@
+.item-row{
+  padding-bottom:15px;
+}
+.product-container {
+  position: relative;
+  background: #fff;
+  padding: 1.4rem 2rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: nowrap;
+  flex-wrap: nowrap;
+  border-bottom: 1px solid #d5d5d5;
+}
+
+.product {
+  width: 80%;
+  padding-right: 1.2rem;
+}
+
+.product{
+  color:#ff4081;
+  font-weight: 900;
+  margin: 0 0 .6rem 0;
+  line-height: 1.2;
+  overflow-wrap: break-word;
+}
+
+.Product-description {
+  font-size: calc(0.8rem + .1vw);
+  color: #454545;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  margin: 0 0 .6rem 0;
+  line-height: 1.4;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  -ms-xword-break: break-all;
+  xword-break: break-all;
+  word-break: break-word;
+  x-ms-hyphens: auto;
+  x-moz-hyphens: auto;
+  x-webkit-hyphens: auto;
+  xhyphens: auto;
+}
+.product-img-price-container{
+  -webkit-box-flex: 1;
+  -ms-flex: 1 0 auto;
+  flex: 1 0 auto;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  -webkit-box-align: end;
+  -ms-flex-align: end;
+  align-items: flex-end;
+}
+
+.img-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: start;
+  -ms-flex-align: start;
+  align-items: flex-start;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+}
+.img-container {
+  width: 10rem;
+  height: 100%;
+  margin-bottom: 1.8rem;
+  position: relative;
+}
+
+.order-product{
+  background-color: #ff4081;
+  border-color: #ff4081;
+  height: 6.5vh;
+  font-size: 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+.order-product:hover{
+  color: #fff;
+  background-color: #FF6DAB;
+  border-color: #FF6DAB;
+}
+
+.order-product:active{
+  color: #fff;
+  background-color: #FF6DAB;
+  border-color: #FF6DAB;
+}
+
+

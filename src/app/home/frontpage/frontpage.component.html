@@ -1,13 +1,13 @@
 <div class="background"></div>
 
-<div class="header">
-  <div class="logo_topLeft">
-    <img src="../../../assets/Logo_text.png" />
-  </div>
-<!--  <div class="menu_topRight">-->
-<!--    <app-menu></app-menu>-->
+<!--<div class="header">-->
+<!--  <div class="logo_topLeft">-->
+<!--    <img src="../../../assets/Logo_text.png" />-->
 <!--  </div>-->
-</div>
+<!--&lt;!&ndash;  <div class="menu_topRight">&ndash;&gt;-->
+<!--&lt;!&ndash;    <app-menu></app-menu>&ndash;&gt;-->
+<!--&lt;!&ndash;  </div>&ndash;&gt;-->
+<!--</div>-->
 
 <div class="container">
   <div class="container__item">
@@ -20,7 +20,8 @@
             <div *ngIf="getForm.postalcode.errors?.required  && postalcodeForm.dirty && postalcodeForm.value.length > 0">Postcode is verplicht!</div>
             <div *ngIf="getForm.postalcode.errors?.unkownPostalCode">Helaas wij leveren niet aan deze postcode!</div>
           </div>
-        <button type="submit" class="btn btn--primary btn--inside uppercase">Bestellen!</button>
+        <button  [disabled]="postalcodeForm.invalid" type="submit" class="btn btn--primary btn--inside uppercase">Bestellen!</button>
+
     </form>
   </div>
 </div>

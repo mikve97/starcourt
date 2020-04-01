@@ -13,22 +13,6 @@
 
 
 }
-.header{
-  width:100%;
-  height:auto;
-}
-.logo_topLeft{
-  position: relative;
-  z-index:2;
-  float:left;
-  padding: 20px 0 0 20px;
-}
-.logo_topLeft img{
-  width: 200px;
-  height: auto;
-}
-
-
 
 .container {
   display: -webkit-box;
