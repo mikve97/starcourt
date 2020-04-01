@@ -103,6 +103,15 @@
   font-weight: 100;
   font-style: normal;
 }
+
+.empty-cart{
+  color: #454545;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  text-align: center;
+}
+
 .product-amount {
   float: left;
   width: 10%;

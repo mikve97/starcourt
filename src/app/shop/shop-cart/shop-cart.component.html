@@ -19,8 +19,14 @@
               <small class="small-text">{{product.getProductDescr()}}</small>
           </div>
       </section>
-
     </section>
+
+    <section class="order-items" *ngIf="products.length === 0">
+      <section class="item-row">
+        <p class="empty-cart">Kies iets lekkers uit het menu en plaats je bestelling.</p>
+      </section>
+    </section>
+
     <section class="order-total">
       <p>
         <span class='total-text'>Totaal </span>
