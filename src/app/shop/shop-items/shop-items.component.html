@@ -1,0 +1,46 @@
+<div *ngFor="let product of products; let i = index;">
+  <div class="row item-row" *ngIf="i % 2">
+    <section class="col-lg-4">
+      <article class="product-container">
+        <div class="product">
+          <h4 class="product-title">{{products[i - 1].name}}</h4>
+          <p class="Product-description">{{products[i - 1].description}}</p>
+        </div>
+        <div class="product-img-price-container">
+          <div class="price">
+            <button value="1.50" (click)="addToCart(products[i -1].productId, products[i -1].name, products[i -1].description, products[i -1].price, products[i -1].categoryId, products[i -1].categoryName)"  value="{{products[i - 1].price}}" class="btn btn-primary btn-block order-product">€{{formatPrice(products[i - 1].price)}}</button>
+          </div>
+        </div>
+      </article>
+    </section>
+    <section class="col-lg-4">
+      <article class="product-container">
+        <div class="product">
+          <h4 class="product-title">{{products[i].name}}</h4>
+          <p class="Product-description">{{products[i].description}}</p>
+        </div>
+        <div class="product-img-price-container">
+          <div class="price">
+            <button value="1.50" (click)="addToCart(products[i].productId, products[i].name, products[i].description, products[i].price, products[i].categoryId, products[i].categoryName)"  value="{{products[i].price}}" class="btn btn-primary btn-block order-product">€{{formatPrice(products[i].price)}}</button>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <div class="row item-row" *ngIf="i === products.length">
+    <section class="col-lg-4">
+      <article class="product-container">
+        <div class="product">
+          <h4 class="product-title">{{products[i].name}}</h4>
+          <p class="Product-description">{{products[i].description}}</p>
+        </div>
+        <div class="product-img-price-container">
+          <div class="price">
+            <button value="1.50" (click)="addToCart(products[i].productId, products[i].name, products[i].description, products[i].price, products[i].categoryId, products[i].categoryName)"  value="{{formatPrice(products[i].price)}}" class="btn btn-primary btn-block order-product">€{{products[i].price}}</button>
+          </div>
+        </div>
+      </article>
+    </section>
+  </div>
+</div>

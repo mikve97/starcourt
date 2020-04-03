@@ -1,4 +1,20 @@
 
+.header{
+  width:100%;
+  height:100px;
+  background-color: #ff4081;
+}
+.logo_topLeft{
+  position: relative;
+  z-index:2;
+  float:left;
+  padding: 20px 0 0 20px;
+
+}
+.logo_topLeft img{
+  width: 200px;
+  height: auto;
+}
 
 .menu_topRight{
   position: relative;
@@ -144,4 +160,6 @@
   font-size: 36px;
   margin-left: 50px;
 }
+
+
 

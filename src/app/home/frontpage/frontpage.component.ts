@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {PostalcodeService} from '../../shared-services/postalcode.service';
+import {map} from 'rxjs/operators';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-frontpage',
@@ -7,10 +10,9 @@ import {FormBuilder, FormGroup, Validators} from '@angular/forms';
   styleUrls: ['./frontpage.component.css']
 })
 export class FrontpageComponent implements OnInit {
-  private postalcodeForm: FormGroup;
-  private submitted: boolean;
+  public postalcodeForm: FormGroup;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private pcService: PostalcodeService, private router: Router) {
 
 
   }
@@ -20,16 +22,30 @@ export class FrontpageComponent implements OnInit {
 
   ngOnInit() {
     this.postalcodeForm = this.formBuilder.group({
-      postalcode: ['', Validators.required]
+      postalcode: ['', Validators.required, this.postalCodeCheck.bind(this)]
     });
   }
+
   public order(postalcode) {
-    this.submitted = true;
-    console.log(this.postalcodeForm.controls.postalcode.errors);
     // stop here if form is invalid
     if (this.postalcodeForm.invalid) {
       return;
+    } else {
+      this.router.navigate(['shop/' + postalcode.postalcode]);
     }
-    console.log('test', postalcode);
+  }
+
+  private postalCodeCheck(control: AbstractControl) {
+
+    return this.pcService.checkPostalCode(control.value)
+      .pipe(
+        map(res => {
+          if (res) {
+            return null;
+          } else {
+            return {unkownPostalCode: true};
+          }
+        })
+      );
   }
 }

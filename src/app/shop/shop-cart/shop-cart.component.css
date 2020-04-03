@@ -1,0 +1,151 @@
+
+.container{
+  position: relative;
+  margin-top: 5.6rem;
+
+}
+
+.cart-floating::after {
+  content: "";
+  background-image: url("../../../assets/kartel.svg");
+  background-repeat: repeat-x;
+  background-size: 23px 6px;
+  display: block;
+  width: 100%;
+  height: 7px;
+  bottom: -7px;
+  left: 0;
+  right: 0;
+  position: absolute;
+}
+
+.cart-floating{
+  position: absolute;
+  top:0;
+  right: -6.5vw;
+  width: 360px;
+  height: auto;
+  min-height: 391px;
+  background: white;
+  z-index: 2;
+
+}
+.header{
+  border-bottom: 1px solid rgba(112,112,112,.25);
+}
+.header h3{
+  padding: 42px 0 0 0;
+}
+.header h3, .header p{
+  padding-left: 15px;
+  padding-right: 15px;
+  text-align: center;
+  color: #454545;
+}
+.header p {
+  font-family: 'Source Sans Pro', sans-serif;
+}
+.order-items{
+  height: 100%;
+  padding: 0 2rem;
+  position: relative;
+}
+.item-row{
+  position: relative;
+  padding: 1rem 0 0.5rem;
+  border-bottom: 1px solid rgba(112,112,112,.25);
+}
+.item-row p small{
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+.product-price{
+  float:right;
+}
+
+.order-total{
+  padding: 1.5rem 2.4rem;
+}
+
+.total-price{
+  float:right;
+  font-size: calc(1.8rem + .3vw);
+  margin-top: -4px;
+}
+.total-text{
+  font-size: calc(1.6rem + .1vw);
+  margin: 0;
+}
+.order-total button{
+  background-color: #00afed;
+  border-color: #00afed;
+  height: 50px;
+  font-size: 1.5rem;
+  transition: all 0.2s ease-in-out;
+}
+.order-total button:hover{
+  color: #fff;
+  background-color: #38cbff;
+  border-color: #38cbff;
+}
+
+.order-total button:active{
+  color: #fff;
+  background-color: #38cbff;
+  border-color: #38cbff;
+}
+
+.small-text {
+  font-size: calc(0.7rem + .1vw);
+  color: #454545;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+}
+
+.empty-cart{
+  color: #454545;
+  font-family: 'Source Sans Pro', sans-serif;
+  font-weight: 100;
+  font-style: normal;
+  text-align: center;
+}
+
+.product-amount {
+  float: left;
+  width: 10%;
+  height: 50px;
+}
+
+
+.substract-button{
+  cursor: pointer;
+  color: #ff251e;
+  padding-left:10px;
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
+.add-button{
+  cursor: pointer;
+  color: #12802a;
+
+  -webkit-user-select: none; /* Chrome/Safari */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* IE10+ */
+
+  /* Rules below not implemented in browsers yet */
+  -o-user-select: none;
+  user-select: none;
+}
+
+
+
+
+

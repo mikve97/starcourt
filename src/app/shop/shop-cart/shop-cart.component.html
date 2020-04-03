@@ -1,0 +1,39 @@
+<div class="container">
+  <section class="cart-floating">
+    <section class="header">
+      <h3>Je bestelling</h3>
+      <p>Wij bezorgen bij ieder bedag zonder bezorgkosten!</p>
+    </section>
+
+
+    <section class="order-items" *ngIf="products.length > 0">
+      <section class="item-row" *ngFor="let product of products ">
+          <div class="product-amount">
+            <small>{{product.getProductAmount()}}x</small>
+          </div>
+          <div class="product-text">
+              <span> {{product.getProductName()}} </span>
+              <span class="substract-button" (click)="substractProduct(product.getProductId())"> - </span>
+              <span class="add-button" (click)="addProduct(product.getProductId())"> + </span>
+              <span class="product-price">€ {{formatPrice(product.getTotalPrice())}} </span><br>
+              <small class="small-text">{{product.getProductDescr()}}</small>
+          </div>
+      </section>
+    </section>
+
+    <section class="order-items" *ngIf="products.length === 0">
+      <section class="item-row">
+        <p class="empty-cart">Kies iets lekkers uit het menu en plaats je bestelling.</p>
+      </section>
+    </section>
+
+    <section class="order-total">
+      <p>
+        <span class='total-text'>Totaal </span>
+        <span class="total-price">€{{getTotalPrice}}</span>
+      </p>
+      <button [disabled]="isEmpty"  (click)="checkout()" type="submit" class="btn btn-primary btn-block">Bestellen</button>
+    </section>
+  </section>
+</div>
+

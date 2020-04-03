@@ -4,13 +4,13 @@
       <img class="brand-img" src="../../assets/star_court_logo.png" alt="...">
       <h2 class="brand-text font-size-40">Starcourt</h2>
     </div>
-    <p class="font-size-20">Starcourt het lekkerste pannekoekie restaurant van Nederland! Neem gerust een kijkje in ons klanten portaal, vergeet je niet eerst aan te melden.</p>
+    <p class="font-size-20">Starcourt het lekkerste pannekoekie restaurant van Nederland! <BR> In ons klanten portaal kunt u al uw bestellingen en opstaande facturen bekijken. </p>
   </div>
   <div class="page-login-main animation-slide-right animation-duration-1">
     <h3 class="font-size-24">Login</h3>
     <p>Om verder te gaan dient u in te loggen.</p>
 
-    <form [formGroup]="loginForm" (ngSubmit)="login(loginForm.value)">
+    <form [formGroup]="loginForm" (ngSubmit)="login()">
       <div class="form-group">
         <label class="sr-only" for="inputEmail">Email</label>
         <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email"  ngModel email="true" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && getForm.email.errors }">
@@ -31,7 +31,7 @@
     </form>
 
 
-    <p>Geen account? <a href="#">Meld u aan!</a></p>
+    <p>Terug naar bestellen <a routerLink="/home" href="#">Bestellen!</a></p>
 
     <footer class="page-copyright">
       <p>Shop by: Mike van Es</p>

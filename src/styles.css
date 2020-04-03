@@ -1,9 +1,42 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Baloo+2:700&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap');
 body{
   margin:0;
   padding:0;
+  background: #ededed;
+  overflow-x: hidden;
 }
 
 html, body { height: 100%; font-family: 'Baloo 2', cursive; }
 body { margin: 0; }
+
+@-webkit-keyframes autofill {
+  0%,100% {
+    color: #666;
+    background: white;
+  }
+}
+
+input:-webkit-autofill {
+  -webkit-animation-delay: 1s; /* Safari support - any positive time runs instantly */
+  -webkit-animation-name: autofill;
+  -webkit-animation-fill-mode: both;
+}
+
+.is-valid{
+  color: #3e8ef7!important;
+}
+
+.is-invalid{
+  color: red!important;
+}
+
+/*Change text in autofill textbox*/
+input.is-valid:-webkit-autofill {
+  -webkit-text-fill-color: #3e8ef7 !important;
+}
+
+input.is-invalid:-webkit-autofill {
+  -webkit-text-fill-color: red !important;
+}
