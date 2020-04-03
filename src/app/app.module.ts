@@ -8,6 +8,7 @@ import {LoginModule} from './login/login.module';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {ShopModule} from './shop/shop.module';
+import {PostalcodeDirective} from './validators/postalcode.directive';
 
 
 @NgModule({
@@ -25,6 +26,8 @@ import {ShopModule} from './shop/shop.module';
 
   ],
   providers: [],
+  exports: [
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
