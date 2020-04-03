@@ -10,6 +10,9 @@ import {HttpClientModule} from '@angular/common/http';
 import {ShopModule} from './shop/shop.module';
 import {PostalcodeDirective} from './validators/postalcode.directive';
 import { ToastrModule } from 'ngx-toastr';
+import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
+import {GuardService} from './shared-services/auth/guard.service';
+
 
 
 @NgModule({
@@ -27,7 +30,9 @@ import { ToastrModule } from 'ngx-toastr';
     ToastrModule.forRoot()
 
   ],
-  providers: [],
+  providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
+    JwtHelperService,
+    GuardService],
   exports: [
   ],
   bootstrap: [AppComponent]

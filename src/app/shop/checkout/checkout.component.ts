@@ -12,7 +12,7 @@ import {HttpClientService} from '../../shared-services/http-client.service';
   styleUrls: ['./checkout.component.css']
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
-  private checkoutForm: FormGroup;
+  public checkoutForm: FormGroup;
   private orderSub;
 
   public postalCode;

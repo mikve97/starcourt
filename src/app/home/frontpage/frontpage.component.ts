@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
   styleUrls: ['./frontpage.component.css']
 })
 export class FrontpageComponent implements OnInit {
-  private postalcodeForm: FormGroup;
+  public postalcodeForm: FormGroup;
 
   constructor(private formBuilder: FormBuilder, private pcService: PostalcodeService, private router: Router) {
 
