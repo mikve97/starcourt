@@ -38,7 +38,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.orderSub.unsubscribe();
+    if (this.orderSub)
+      this.orderSub.unsubscribe();
   }
 
   public get getForm(){
@@ -95,8 +96,8 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       //   notes: this.checkoutForm.get('notes').value,
       //   ordertime: this.checkoutForm.get('ordertime').value,
       // }),
-      this.orderSub = this.httpclient.onPost('/order/setNewOrder', orderToBeMade).subscribe(() => {
-        console.log("REQUEST GEMAAKT");
+      this.orderSub = this.httpclient.onPost('/order/setNewOrder', orderToBeMade).subscribe((returnValue) => {
+        console.log("REQUEST GEMAAKT" + returnValue);
       });
       console.log(this.orderSub);
     }

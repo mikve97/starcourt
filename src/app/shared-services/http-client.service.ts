@@ -19,7 +19,6 @@ export class HttpClientService {
   }
 
   onPost(urlEnd: string, body: any): Observable<any> {
-    console.log(urlEnd, body);
     return this.http.post<any>(this.urlStart + urlEnd, JSON.stringify(body), {headers: this.httpHeaders});
   }
 

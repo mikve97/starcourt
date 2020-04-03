@@ -3,12 +3,13 @@ import { NgModule } from '@angular/core';
 
 import { AppComponent } from './app.component';
 import {HomeModule} from './home/home.module';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {LoginModule} from './login/login.module';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {ShopModule} from './shop/shop.module';
 import {PostalcodeDirective} from './validators/postalcode.directive';
+import { ToastrModule } from 'ngx-toastr';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import {PostalcodeDirective} from './validators/postalcode.directive';
     LoginModule,
     ShopModule,
     BrowserAnimationsModule,
-    HttpClientModule
+    HttpClientModule,
+    ToastrModule.forRoot()
 
   ],
   providers: [],

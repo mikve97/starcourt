@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 import { Validators } from '@angular/forms';
+import {HttpClientService} from '../shared-services/http-client.service';
+import {Auth} from '../shared-services/auth.service';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +13,7 @@ export class LoginComponent implements OnInit {
   private loginForm: FormGroup;
   private submitted: boolean;
 
-  constructor(private formBuilder: FormBuilder) {
+  constructor(private formBuilder: FormBuilder, private authService: Auth) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(6)]]
@@ -25,13 +27,14 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  login(loginData) {
+  login() {
     this.submitted = true;
-    // Process checkout data here
-    console.log('Your order has been submitted', loginData);
+
     // stop here if form is invalid
     if (this.loginForm.invalid) {
       return;
+    } else {
+      this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value);
     }
 
   }
