@@ -1,0 +1,17 @@
+.adminMenuContainer{
+  background:#3e8ef7;
+}
+.adminMenuContainer nav ul li a {
+  color:white;
+  transition: 0.2s;
+  cursor:pointer;
+}
+
+.adminMenuContainer nav ul li a.active {
+  color:#ff4081;
+}
+
+
+.adminMenuContainer nav ul li a:hover {
+  color:#ff4081;
+}

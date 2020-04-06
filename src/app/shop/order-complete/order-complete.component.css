@@ -1,0 +1,10 @@
+.home-button{
+  color:white;
+  background: #3e8ef7;
+  transition: all 0.2s;
+  border:none;
+}
+.home-button:hover{
+  background: #ff4081;
+  color:white;
+}

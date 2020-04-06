@@ -5,6 +5,8 @@ import {AbstractControl, FormBuilder, FormGroup, Validators} from '@angular/form
 import {map} from 'rxjs/operators';
 import {PostalcodeService} from '../../shared-services/postalcode.service';
 import {HttpClientService} from '../../shared-services/http-client.service';
+import {ToastrService} from 'ngx-toastr';
+import {AuthService} from '../../shared-services/auth/auth.service';
 
 @Component({
   selector: 'app-checkout',
@@ -13,12 +15,22 @@ import {HttpClientService} from '../../shared-services/http-client.service';
 })
 export class CheckoutComponent implements OnInit, OnDestroy {
   public checkoutForm: FormGroup;
+  public loginForm: FormGroup;
+  public submitted: boolean;
+  public loginSub;
+  public loggedIn: boolean;
+
   private orderSub;
+  private contactSub;
 
   public postalCode;
   public products = [];
-  constructor(private formBuilder: FormBuilder, private shopService: ShopService, private pcService: PostalcodeService, private httpclient: HttpClientService, private activatedRoute: ActivatedRoute) {
+  constructor(private formBuilder: FormBuilder, private shopService: ShopService, private pcService: PostalcodeService, private httpclient: HttpClientService, private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService, private toastr: ToastrService) {
     this.postalCode = this.activatedRoute.snapshot.params.postalcode;
+
+    if(localStorage.getItem('token')) {
+      this.getUserInformation();
+    }
   }
 
   ngOnInit() {
@@ -35,15 +47,39 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       accountemail: [''],
       accountpassword: ['']
     });
+
+    this.loginForm = this.formBuilder.group({
+      email: ['', [Validators.required, Validators.email]],
+      password: ['', [Validators.required, Validators.minLength(6)]]
+    });
+
+    this.loginSub = this.authService.loggedIn.subscribe((value) =>{
+      if ( value === true) {
+        this.getUserInformation();
+      }
+    });
   }
 
   ngOnDestroy(): void {
-    if (this.orderSub)
+    if (this.orderSub) {
       this.orderSub.unsubscribe();
+    }
+
+    if(this.loginSub){
+      this.loginSub.unsubscribe();
+    }
+
+    if (this.contactSub){
+      this.contactSub.unsubscribe();
+    }
   }
 
   public get getForm(){
     return this.checkoutForm.controls;
+  }
+
+  public get getFormLogin(){
+    return this.loginForm.controls;
   }
 
   public formatPrice(price) {
@@ -79,13 +115,13 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   public makeOrder() {
-    console.log(this.checkoutForm)
     // stop here if form is invalid
     if (this.checkoutForm.invalid) {
       return;
     }else{
       const formObj = this.getFormObject();
       let orderToBeMade;
+
       orderToBeMade = {
         contactNaw: JSON.stringify(formObj),
         products: JSON.stringify(this.products),
@@ -97,9 +133,11 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       //   ordertime: this.checkoutForm.get('ordertime').value,
       // }),
       this.orderSub = this.httpclient.onPost('/order/setNewOrder', orderToBeMade).subscribe((returnValue) => {
-        console.log("REQUEST GEMAAKT" + returnValue);
+        this.router.navigate(['shop/thankyou']);
+
+      }, error => {
+        this.toastr.error("Er is iets fout gegaan, probeer het nogmaals", "Oepsie!");
       });
-      console.log(this.orderSub);
     }
   }
 
@@ -130,11 +168,53 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   }
 
   private getUserObject() {
-    const user = {
-      email: this.checkoutForm.get('accountemail').value,
-      password: this.checkoutForm.get('accountpassword').value
-    };
-
+    let user;
+    if(localStorage.getItem('token')){
+       user = {
+        email: this.checkoutForm.get('email').value,
+        password: 'Existing_user'
+      };
+    } else {
+       user = {
+        email: this.checkoutForm.get('accountemail').value,
+        password: this.checkoutForm.get('accountpassword').value
+      };
+    }
     return user;
+  }
+
+  public login() {
+    this.submitted = true;
+
+    // stop here if form is invalid
+    if (this.loginForm.invalid) {
+      return;
+    } else {
+      this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value);
+    }
+  }
+
+  private getUserInformation() {
+    this.loggedIn = true;
+    this.orderSub = this.httpclient.onGetWithHeader('/contact/getContactFavorite/' + this.authService.getUserId()).subscribe((result) => {
+      this.setForm(result)
+    }, error => {
+      this.toastr.error("Er is iets fout gegaan, probeer het nogmaals", "Oepsie!");
+    });
+  }
+
+  private setForm(contactInfo) {
+      this.checkoutForm.get('accountemail').disable();
+      this.checkoutForm.get('accountpassword').disable();
+      this.loginForm.get('email').setValue('');
+      this.loginForm.get('email').disable();
+      this.loginForm.get('password').setValue('');
+      this.loginForm.get('password').disable();
+      this.checkoutForm.patchValue({postalcode: contactInfo.postalcode,
+                                          housenumber: contactInfo.housenumber,
+                                          name: contactInfo.name,
+                                          email: contactInfo.email,
+                                          phonenumber: contactInfo.phonenumber,
+                                          companyname: contactInfo.companyname});
   }
 }

@@ -1,0 +1,9 @@
+.row.margin-row {
+  margin-top: 30px;
+}
+
+.card-text{
+  text-align: center;
+  font-size: 3em;
+  color:#ff4081;
+}

@@ -1,0 +1,58 @@
+<div class="container">
+  <h2>Bestellingen</h2>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="Ordernummer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+      <td mat-cell *matCellDef="let element"> {{element.Ordernummer}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="naam">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Naam </th>
+      <td mat-cell *matCellDef="let element"> {{element.naam}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Bedrijf">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bedrijf </th>
+      <td mat-cell *matCellDef="let element"> {{element.Bedrijf}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="Postcode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Postcode </th>
+      <td mat-cell *matCellDef="let element"> {{element.Postcode}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="Huisnummer">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Huisnummer </th>
+      <td mat-cell *matCellDef="let element"> {{element.Huisnummer}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="Besteldatum">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bestel datum </th>
+      <td mat-cell *matCellDef="let element"> {{element.Besteldatum}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="delivered">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Afgeleverd </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.delivered == true"  (click)="setDelivery(element.Ordernummer, false)" class="checkIcon checkIconGreen" >check_circle</mat-icon>
+        <mat-icon *ngIf="element.delivered == false" (click)="setDelivery(element.Ordernummer, true)" class="checkIcon" >check_circle</mat-icon>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>

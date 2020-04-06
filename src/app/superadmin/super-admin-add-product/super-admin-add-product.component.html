@@ -1,0 +1,41 @@
+<div class="container moveFromTop">
+  <h2>Product toevoegen</h2>
+    <form [formGroup]="productForm" (ngSubmit)="submitProduct()">
+      <div class="row rowpadding">
+        <div class="col col-lg-6">
+          <input type="text" class="form-control" placeholder="Product naam" formControlName="productName"  [ngClass]="{ 'is-invalid': submitted && getForm.productName.errors }">
+          <div *ngIf="submitted && getForm.productName.errors" class="invalid-feedback">
+            <div *ngIf="getForm.productName.errors.required">Productnaam is verplicht!</div>
+          </div>
+
+        </div>
+        <div class="col col-lg-6">
+          <input type="text" class="form-control" placeholder="Product omschrijving" formControlName="productDescription"  [ngClass]="{ 'is-invalid': submitted && getForm.productDescription.errors }">
+          <div *ngIf="submitted && getForm.productDescription.errors" class="invalid-feedback">
+            <div *ngIf="getForm.productDescription.errors.required">Omschrijving is verplicht!</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row rowpadding">
+        <div class="col col-lg-6">
+          <input type="text" class="form-control" isPrice placeholder="Product prijs" formControlName="productPrice"  [ngClass]="{ 'is-invalid': submitted && getForm.productPrice.errors }">
+          <div *ngIf="submitted && getForm.productPrice.errors" class="invalid-feedback">
+            <div *ngIf="getForm.productPrice.errors.required">Prijs is verplicht!</div>
+            <div *ngIf="getForm.productPrice.errors?.priceError ">Voer een geldig bedrag</div>
+          </div>
+        </div>
+        <div class="col col-lg-6">
+          <select  class="form-control" formControlName="productCat"  [ngClass]="{ 'is-invalid': submitted && getForm.productCat.errors }">
+            <option value="">Selecteer de categorie</option>
+            <option *ngFor="let cat of categories" [value]="cat.categoryId">{{cat.categoryName}}</option>
+          </select>
+          <div *ngIf="submitted && getForm.productCat.errors" class="invalid-feedback">
+            <div *ngIf="getForm.productCat.errors.required">Selecteer een categorie!</div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit"  class="btn btn-primary btn-block addProduct">Aanmaken</button>
+    </form>
+</div>

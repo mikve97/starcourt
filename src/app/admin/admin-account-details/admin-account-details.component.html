@@ -1,0 +1,54 @@
+<div class="container">
+  <h2>Account gegevens</h2>
+
+  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+      <td mat-cell *matCellDef="let element"> {{element.id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Naam </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="email">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Email </th>
+      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="company">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bedrijf </th>
+      <td mat-cell *matCellDef="let element"> {{element.company}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="postalcode">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Postcode </th>
+      <td mat-cell *matCellDef="let element"> {{element.postalcode}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="number">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Huisnummer </th>
+      <td mat-cell *matCellDef="let element"> {{element.number}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="favorite">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Favoriet </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-icon *ngIf="element.favorite == true" class="starIcon yellowStar" >grade</mat-icon>
+        <mat-icon *ngIf="element.favorite == false" (click)="favoriteAdress(element.id)" class="starIcon" >grade</mat-icon>
+      </td>
+
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+</div>
