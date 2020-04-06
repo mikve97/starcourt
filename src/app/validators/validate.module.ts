@@ -3,12 +3,14 @@ import {AppComponent} from '../app.component';
 import {PostalcodeDirective} from './postalcode.directive';
 import {EmailDirective} from './email.directive';
 import {PhoneDirective} from './phone.directive';
+import {PriceDirective} from './price.directive';
 
 @NgModule({
   declarations: [
     EmailDirective,
     PostalcodeDirective,
-    PhoneDirective
+    PhoneDirective,
+    PriceDirective
   ],
   imports: [
 
@@ -17,7 +19,8 @@ import {PhoneDirective} from './phone.directive';
   exports: [
     PostalcodeDirective,
     EmailDirective,
-    PhoneDirective
+    PhoneDirective,
+    PriceDirective
   ],
   bootstrap: [AppComponent]
 })

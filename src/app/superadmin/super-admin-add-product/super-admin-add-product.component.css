@@ -1,0 +1,16 @@
+.addProduct{
+  float:right!important;
+  width:30%;
+  background:#3e8ef7;
+  transition: all 0.2s;
+  border: none;
+}
+.addProduct:hover{
+  background: #ff4081;
+}
+.rowpadding{
+  padding-bottom:15px;
+}
+.moveFromTop{
+  margin-top:15px;
+}

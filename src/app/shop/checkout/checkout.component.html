@@ -1,125 +1,141 @@
 <div class="checkout-form-container">
   <div class="row">
-    <div class="col-lg=4">
-    <h1>Nog even wachten.</h1>
+    <div class="col-lg-6">
+    <div class="row">
+      <div class="col-lg=4">
+        <h1>Nog even wachten.</h1>
+      </div>
+    </div>
+
+
+    <form [formGroup]="checkoutForm" (submit)="makeOrder()" class="form" >
+      <div class="row ">
+
+        <div class="col-lg-12 remove-padding form-subheading ">
+          <h3 class="form-subheading col-lg-10 remove-padding">Waar moet de bestellng naartoe?</h3>
+        </div>
+        <div class="col-lg-12 form-subheading ">
+          <div class="row">
+            <div class="col-lg-5 remove-padding">
+              <input type="text" class="form-control" isPostalcode formControlName="postalcode" placeholder="Postcode*">
+              <div *ngIf="getForm.postalcode.errors" class="invalid-feedback invalid-checkout">
+                <div *ngIf="getForm.postalcode.errors?.postalcodeError">Geen geldig postocde!</div>
+                <div *ngIf="getForm.postalcode.errors?.required   && getForm.postalcode.touched">Voer uw postcode in!</div>
+                <div *ngIf="getForm.postalcode.errors?.unkownPostalCode">Helaas wij leveren niet aan deze postcode!</div>
+              </div>
+            </div>
+            <div class="col-lg-5 remove-padding">
+              <input type="text" class="form-control" formControlName="housenumber"  placeholder="Huisnummer*">
+              <div *ngIf="getForm.housenumber.errors" class="invalid-feedback invalid-checkout">
+                <div *ngIf="getForm.housenumber.errors?.required  && getForm.housenumber.touched">Voer uw huisnummer in!</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row ">
+
+        <div class="col-lg-12 remove-padding form-subheading ">
+          <h3 class="form-subheading col-lg-10 remove-padding">Hoe kunnen we je bereiken?</h3>
+        </div>
+
+        <div class="col-lg-12">
+          <div class="row">
+            <div class="col-lg-5 remove-padding">
+              <input type="text" class="form-control"  formControlName="name" placeholder="Naam*">
+              <div *ngIf="getForm.name.errors" class="invalid-feedback invalid-checkout">
+                <div *ngIf="getForm.name.errors?.required  && getForm.name.touched">Voer uw naam in!</div>
+              </div>
+            </div>
+            <div class="col-lg-5 remove-padding">
+              <input type="email" isEmail class="form-control" formControlName="email" placeholder="Email*">
+              <div *ngIf="getForm.email.errors" class="invalid-feedback invalid-checkout">
+                <div *ngIf="getForm.email.errors?.required   && getForm.email.touched">Voer uw email in!</div>
+                <div *ngIf="getForm.email.errors?.emailError   && getForm.email.touched">Voer een geldig email adres in</div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-12 form-subheading ">
+          <div class="row">
+            <div class="col-lg-5 remove-padding">
+              <input type="text" isPhone class="form-control" formControlName="phonenumber" placeholder="Telefoonnummer*">
+              <div *ngIf="getForm.phonenumber.errors" class="invalid-feedback invalid-checkout">
+                <div *ngIf="getForm.phonenumber.errors?.required  && getForm.phonenumber.touched">Voer uw telefoonnummer in!</div>
+                <div *ngIf="getForm.phonenumber.errors?.phoneError  && getForm.phonenumber.touched">Voer een geldig telefoonnummer in!</div>
+              </div>
+            </div>
+            <div class="col-lg-5 remove-padding">
+              <input type="text" class="form-control" formControlName="companyname" placeholder="Bedrijfsnaam">
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row ">
+
+        <div class="col-lg-12 remove-padding form-subheading ">
+          <h3 class="form-subheading col-lg-10 remove-padding">Wil je een account aanmaken?</h3>
+        </div>
+
+        <div class="col-lg-12 form-subheading ">
+          <div class="row">
+            <div class="col-lg-5 remove-padding">
+              <input type="text" class="form-control" name="newAccount" autocomplete="off" formControlName="accountemail" placeholder="email">
+            </div>
+            <div class="col-lg-5 remove-padding">
+              <input type="password" class="form-control" name="newPW" autocomplete="new-password" formControlName="accountpassword" placeholder="wachtwoord">
+            </div>
+            <small class="col-lg-12 remove-padding">
+              Als u deze velden invult en op bestellen drukt wordt het account aangemaakt. <br>
+              Door deze velden in te voeren gaat u automatisch akkoord met de voorwaarden.
+            </small>
+          </div>
+        </div>
+
+      </div>
+
+      <button type="submit"  [disabled]="checkoutForm.invalid" class="btn btn--primary btn--inside uppercase">Bestellen!</button>
+
+    </form>
+  </div>
+    <div class="col-lg-6">
+      <div class="row">
+        <div class="col-lg=4">
+          <h1>Log anders gewoon in.</h1>
+        </div>
+        <div class="col-lg-12 remove-padding form-subheading ">
+          <h3 class="form-subheading col-lg-8 remove-padding">Dan doen wij de rest!</h3>
+        </div>
+
+        <form [formGroup]="loginForm" (ngSubmit)="login()">
+          <div class="row">
+            <div class="col-lg-6 ">
+              <label class="sr-only" for="inputEmail">Email</label>
+              <input type="email" class="form-control" id="inputEmail" name="email" placeholder="Email"  ngModel email="true" formControlName="email"  [ngClass]="{ 'is-invalid': submitted && getFormLogin.email.errors }">
+              <div *ngIf="submitted && getFormLogin.email.errors" class="invalid-feedback">
+                <div *ngIf="getFormLogin.email.errors.required">E-mail is verplicht!</div>
+                <div *ngIf="getFormLogin.email.errors.email">E-mail adres moet valide zijn!</div>
+              </div>
+            </div>
+            <div class="col-lg-6">
+              <label class="sr-only" for="inputPassword">Password</label>
+              <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password" formControlName="password" [ngClass]="{ 'is-invalid': submitted && getFormLogin.password.errors }">
+              <div *ngIf="submitted && getFormLogin.password.errors" class="invalid-feedback">
+                <div *ngIf="getFormLogin.password.errors.required">Wachtwoord is verplicht!</div>
+                <div *ngIf="getFormLogin.password.errors.minlength">Het wachtwoord moet 6 karakters zijn!</div>
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Inloggen</button>
+        </form>
+
+      </div>
     </div>
   </div>
-
-  <form [formGroup]="checkoutForm" (submit)="makeOrder()" class="form" >
-    <div class="row ">
-
-      <div class="col-lg-12 remove-padding form-subheading ">
-        <h3 class="form-subheading col-lg-8 remove-padding">Waar moet de bestellng naartoe?</h3>
-      </div>
-      <div class="col-lg-12 form-subheading ">
-        <div class="row">
-          <div class="col-lg-4 remove-padding">
-            <input type="text" class="form-control" isPostalcode formControlName="postalcode" placeholder="Postcode*">
-            <div *ngIf="getForm.postalcode.errors" class="invalid-feedback invalid-checkout">
-              <div *ngIf="getForm.postalcode.errors?.postalcodeError">Geen geldig postocde!</div>
-              <div *ngIf="getForm.postalcode.errors?.required   && getForm.postalcode.touched">Voer uw postcode in!</div>
-              <div *ngIf="getForm.postalcode.errors?.unkownPostalCode">Helaas wij leveren niet aan deze postcode!</div>
-            </div>
-          </div>
-          <div class="col-lg-4 remove-padding">
-            <input type="text" class="form-control" formControlName="housenumber"  placeholder="Huisnummer*">
-            <div *ngIf="getForm.housenumber.errors" class="invalid-feedback invalid-checkout">
-              <div *ngIf="getForm.housenumber.errors?.required  && getForm.housenumber.touched">Voer uw huisnummer in!</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="row ">
-
-      <div class="col-lg-12 remove-padding form-subheading ">
-        <h3 class="form-subheading col-lg-8 remove-padding">Hoe kunnen we je bereiken?</h3>
-      </div>
-
-      <div class="col-lg-12">
-        <div class="row">
-          <div class="col-lg-4 remove-padding">
-            <input type="text" class="form-control"  formControlName="name" placeholder="Naam*">
-            <div *ngIf="getForm.name.errors" class="invalid-feedback invalid-checkout">
-              <div *ngIf="getForm.name.errors?.required  && getForm.name.touched">Voer uw naam in!</div>
-            </div>
-          </div>
-          <div class="col-lg-4 remove-padding">
-            <input type="email" isEmail class="form-control" formControlName="email" placeholder="Email*">
-            <div *ngIf="getForm.email.errors" class="invalid-feedback invalid-checkout">
-              <div *ngIf="getForm.email.errors?.required   && getForm.email.touched">Voer uw email in!</div>
-              <div *ngIf="getForm.email.errors?.emailError   && getForm.email.touched">Voer een geldig email adres in</div>
-            </div>
-          </div>
-        </div>
-      </div>
-      <div class="col-lg-12 form-subheading ">
-        <div class="row">
-          <div class="col-lg-4 remove-padding">
-            <input type="text" isPhone class="form-control" formControlName="phonenumber" placeholder="Telefoonnummer*">
-            <div *ngIf="getForm.phonenumber.errors" class="invalid-feedback invalid-checkout">
-              <div *ngIf="getForm.phonenumber.errors?.required  && getForm.phonenumber.touched">Voer uw telefoonnummer in!</div>
-              <div *ngIf="getForm.phonenumber.errors?.phoneError  && getForm.phonenumber.touched">Voer een geldig telefoonnummer in!</div>
-            </div>
-          </div>
-          <div class="col-lg-4 remove-padding">
-            <input type="text" class="form-control" formControlName="companyname" placeholder="Bedrijfsnaam">
-          </div>
-        </div>
-      </div>
-
-    </div>
-
-    <div class="row ">
-
-      <div class="col-lg-12 remove-padding form-subheading ">
-        <h3 class="form-subheading col-lg-8 remove-padding">Hoelaat wil je het eten geleverd hebben?</h3>
-      </div>
-
-      <div class="col-lg-12 form-subheading ">
-        <div class="row">
-          <div class="col-lg-4 remove-padding">
-            <select formControlName="ordertime" class="selectpicker form-control">
-              <option>Zo snel mogelijk</option>
-              <option>17:00</option>
-              <option>18:00</option>
-            </select>
-          </div>
-          <div class="col-lg-4 remove-padding">
-            <textarea class="form-control" formControlName="notes" placeholder="Opmerkingen"></textarea>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="row ">
-
-      <div class="col-lg-12 remove-padding form-subheading ">
-        <h3 class="form-subheading col-lg-8 remove-padding">Wil je een account aanmaken?</h3>
-      </div>
-
-      <div class="col-lg-12 form-subheading ">
-        <div class="row">
-          <div class="col-lg-4 remove-padding">
-            <input type="text" class="form-control" formControlName="accountemail" placeholder="email">
-          </div>
-          <div class="col-lg-4 remove-padding">
-            <input type="password" class="form-control" formControlName="accountpassword" placeholder="wachtwoord">
-          </div>
-          <small class="col-lg-12 remove-padding">
-            Als u deze velden invult en op bestellen drukt wordt het account aangemaakt. <br>
-            Door deze velden in te voeren gaat u automatisch akkoord met de voorwaarden.
-          </small>
-        </div>
-      </div>
-
-    </div>
-
-    <button type="submit"  [disabled]="checkoutForm.invalid" class="btn btn--primary btn--inside uppercase">Bestellen!</button>
-
-  </form>
 
 </div>
 

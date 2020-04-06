@@ -6,27 +6,37 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class HttpClientService {
-  private httpHeaders = new HttpHeaders({
+  private defaultHeader = new HttpHeaders({
     'Content-Type' : 'application/json'
-    // 'Token': localStorage.getItem('jwtoken')
   });
+
+
   private urlStart = 'http://localhost:8080';
 
   constructor(private http: HttpClient) {}
 
   onGet(urlEnd: string): Observable<any> {
-    return this.http.get(this.urlStart + urlEnd, {headers: this.httpHeaders});
+    return this.http.get(this.urlStart + urlEnd, {headers: this.defaultHeader});
   }
 
   onPost(urlEnd: string, body: any): Observable<any> {
-    return this.http.post<any>(this.urlStart + urlEnd, JSON.stringify(body), {headers: this.httpHeaders});
+    return this.http.post<any>(this.urlStart + urlEnd, JSON.stringify(body), {headers: this.defaultHeader});
   }
 
-  onPut(urlEnd: string, body: any): Observable<any> {
-    return this.http.put<any>(this.urlStart + urlEnd, JSON.stringify(body), {headers: this.httpHeaders});
+  onGetWithHeader(urlEnd: string): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      Token: localStorage.getItem('token')
+    });
+    return this.http.get(this.urlStart + urlEnd, {headers: httpHeaders});
   }
 
-  onDelete(urlEnd: string): Observable<any> {
-    return this.http.delete(this.urlStart + urlEnd, {headers: this.httpHeaders});
+  onPostWithHeader(urlEnd: string, body: any): Observable<any> {
+    const httpHeaders = new HttpHeaders({
+      'Content-Type' : 'application/json',
+      Token: localStorage.getItem('token')
+    });
+    return this.http.post<any>(this.urlStart + urlEnd, JSON.stringify(body), {headers: httpHeaders});
   }
+
 }

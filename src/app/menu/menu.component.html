@@ -1,0 +1,21 @@
+<div class="header">
+  <div class="logo_topLeft">
+    <img [routerLink]="['home']" src="../../../assets/Logo_text.png" />
+  </div>
+  <div class="menu_topRight">
+    <nav role="navigation">
+      <div id="menuToggle">
+        <input type="checkbox" />
+        <span></span>
+        <span></span>
+        <span></span>
+        <div id="menu" class="sidenav">
+          <a class="menu-items" routerLink="home" >Home</a>
+          <a class="menu-items" *ngIf="!loggedIn" routerLink="login" >Login</a>
+          <a class="menu-items" *ngIf="loggedIn" routerLink="superadmin" >Dashboard</a>
+          <a class="menu-items" *ngIf="loggedIn" (click)="removeToken()" routerLink="home" >Uitloggen</a>
+        </div>
+      </div>
+    </nav>
+  </div>
+</div>

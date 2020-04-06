@@ -6,19 +6,19 @@ import {ShopComponent} from './shop.component';
 import { ShopCartComponent } from './shop-cart/shop-cart.component';
 import { CheckoutComponent } from './checkout/checkout.component';
 import {ReactiveFormsModule} from '@angular/forms';
-import {EmailDirective} from '../validators/email.directive';
-import {PostalcodeDirective} from '../validators/postalcode.directive';
-import {AppModule} from '../app.module';
 import {ValidateModule} from '../validators/validate.module';
+import { OrderCompleteComponent } from './order-complete/order-complete.component';
+import {RouterModule} from '@angular/router';
 
 
 
 @NgModule({
-  declarations: [ShopComponent, ShopHeaderComponent, ShopItemsComponent, ShopCartComponent, CheckoutComponent],
+  declarations: [ShopComponent, ShopHeaderComponent, ShopItemsComponent, ShopCartComponent, CheckoutComponent, OrderCompleteComponent],
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    ValidateModule
+    ValidateModule,
+    RouterModule
   ]
 })
 export class ShopModule { }

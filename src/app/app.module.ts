@@ -8,16 +8,20 @@ import {LoginModule} from './login/login.module';
 import {AppRoutingModule} from './app-routing.module';
 import {HttpClientModule} from '@angular/common/http';
 import {ShopModule} from './shop/shop.module';
-import {PostalcodeDirective} from './validators/postalcode.directive';
 import { ToastrModule } from 'ngx-toastr';
 import { JwtHelperService, JWT_OPTIONS  } from '@auth0/angular-jwt';
 import {GuardService} from './shared-services/auth/guard.service';
+import {AdminModule} from './admin/admin.module';
+import {SuperadminModule} from './superadmin/superadmin.module';
+import {RoleGuardService} from './shared-services/auth/roleguard.service';
+import { MenuComponent } from './menu/menu.component';
 
 
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MenuComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,14 +29,16 @@ import {GuardService} from './shared-services/auth/guard.service';
     HomeModule,
     LoginModule,
     ShopModule,
+    AdminModule,
+    SuperadminModule,
     BrowserAnimationsModule,
     HttpClientModule,
     ToastrModule.forRoot()
-
   ],
   providers: [{ provide: JWT_OPTIONS, useValue: JWT_OPTIONS },
     JwtHelperService,
-    GuardService],
+    GuardService,
+    RoleGuardService],
   exports: [
   ],
   bootstrap: [AppComponent]
