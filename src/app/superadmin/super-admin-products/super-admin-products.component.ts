@@ -3,6 +3,7 @@ import {HttpClientService} from '../../shared-services/http-client.service';
 import {MatSort, MatTableDataSource} from '@angular/material';
 import {ContactElement} from '../../admin/admin-account-details/admin-account-details.component';
 import {ToastrService} from 'ngx-toastr';
+import {MatPaginator} from "@angular/material/paginator";
 
 
 export interface ProductElement {
@@ -28,7 +29,8 @@ export class SuperAdminProductsComponent implements OnInit, OnDestroy {
   public dataSource: MatTableDataSource<ProductElement>;
   public displayedColumns: string[];
 
-   @ViewChild(MatSort, {static: true}) sort: MatSort;
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
 
 
@@ -52,6 +54,7 @@ export class SuperAdminProductsComponent implements OnInit, OnDestroy {
 
   private onDataInit() {
     this.sort.sort({ id: 'id', start: 'desc', disableClear: false });
+    this.dataSource.paginator = this.paginator;
     this.dataSource.sort = this.sort;
   }
 
@@ -106,6 +109,15 @@ export class SuperAdminProductsComponent implements OnInit, OnDestroy {
 
 
     return formattedPrice;
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
 }

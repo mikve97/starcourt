@@ -88,6 +88,9 @@
             </div>
             <div class="col-lg-5 remove-padding">
               <input type="password" class="form-control" name="newPW" autocomplete="new-password" formControlName="accountpassword" placeholder="wachtwoord">
+              <div *ngIf="getForm.accountpassword.errors" class="invalid-feedback invalid-checkout">
+                <div *ngIf="getForm.accountpassword.errors?.minlength">Het wachtwoord moet 6 karakters zijn!</div>
+              </div>
             </div>
             <small class="col-lg-12 remove-padding">
               Als u deze velden invult en op bestellen drukt wordt het account aangemaakt. <br>

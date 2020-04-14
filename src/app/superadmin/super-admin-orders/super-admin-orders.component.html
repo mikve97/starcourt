@@ -1,58 +1,62 @@
 <div class="container">
   <h2>Bestellingen</h2>
 
-  <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
-    <!-- Position Column -->
-    <ng-container matColumnDef="Ordernummer">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
-      <td mat-cell *matCellDef="let element"> {{element.Ordernummer}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="naam">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Naam </th>
-      <td mat-cell *matCellDef="let element"> {{element.naam}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="email">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> email </th>
-      <td mat-cell *matCellDef="let element"> {{element.email}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="Bedrijf">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bedrijf </th>
-      <td mat-cell *matCellDef="let element"> {{element.Bedrijf}} </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="Postcode">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Postcode </th>
-      <td mat-cell *matCellDef="let element"> {{element.Postcode}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="Huisnummer">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Huisnummer </th>
-      <td mat-cell *matCellDef="let element"> {{element.Huisnummer}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="Besteldatum">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Bestel datum </th>
-      <td mat-cell *matCellDef="let element"> {{element.Besteldatum}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="delivered">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> Afgeleverd </th>
+  <mat-form-field>
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)">
+  </mat-form-field>
+  <table mat-table
+         [dataSource]="dataSource" multiTemplateDataRows matSort
+         class="mat-elevation-z8">
+    <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
+      <th mat-header-cell mat-sort-header *matHeaderCellDef> {{column}} </th>
       <td mat-cell *matCellDef="let element">
-        <mat-icon *ngIf="element.delivered == true"  (click)="setDelivery(element.Ordernummer, false)" class="checkIcon checkIconGreen" >check_circle</mat-icon>
-        <mat-icon *ngIf="element.delivered == false" (click)="setDelivery(element.Ordernummer, true)" class="checkIcon" >check_circle</mat-icon>
+        <span *ngIf="column == 'Afgeleverd'">
+          <mat-icon *ngIf="element[column] == true"  (click)="setDelivery(element.Ordernummer, false)" class="checkIcon checkIconGreen" >check_circle</mat-icon>
+          <mat-icon *ngIf="element[column] == false" (click)="setDelivery(element.Ordernummer, true)" class="checkIcon" >check_circle</mat-icon>
+        </span>
+        <span *ngIf="column != 'Afgeleverd'">
+          {{element[column]}}
+        </span>
       </td>
     </ng-container>
 
+    <!-- Expanded Content Column - The detail row is made up of this one column that spans across all columns -->
+    <ng-container matColumnDef="expandedDetail">
+      <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+        <div class="example-element-detail"
+             [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+          <table>
+            <div *ngFor="let product of element.products" class="product-row">
+              <tr>
+                <td style="width:172px;">{{product.productId}}</td>
+                <td style="width:60px;">{{product.productAmount}} x </td>
+                <td style="width:170px;">{{product.pm.name}}</td>
+                <td style="width:500px;">{{product.pm.description}}</td>
+                <td>{{product.price}}</td>
+              </tr>
+            </div>
+          </table>
+
+        </div>
+      </td>
+    </ng-container>
+
+<!--    <ng-container matColumnDef="delivered">-->
+<!--      <th mat-header-cell *matHeaderCellDef mat-sort-header> Afgeleverd </th>-->
+<!--      <td mat-cell *matCellDef="let element">-->
+
+<!--      </td>-->
+<!--    </ng-container>-->
+
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let element; columns: displayedColumns;"
+        class="example-element-row"
+        [class.example-expanded-row]="expandedElement === element"
+        (click)="expandedElement = expandedElement === element ? null : element">
+    </tr>
+    <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
   </table>
+  <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
 </div>

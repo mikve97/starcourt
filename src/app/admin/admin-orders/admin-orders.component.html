@@ -1,11 +1,16 @@
 <div class="container">
   <div class="col-lg-12">
     <h2>Uw bestellingen</h2>
+
+    <mat-form-field>
+      <mat-label>Filter</mat-label>
+      <input matInput (keyup)="applyFilter($event)">
+    </mat-form-field>
     <table mat-table
-           [dataSource]="dataSource" multiTemplateDataRows
+           [dataSource]="dataSource" multiTemplateDataRows matSort
            class="mat-elevation-z8">
       <ng-container matColumnDef="{{column}}" *ngFor="let column of displayedColumns">
-        <th mat-header-cell *matHeaderCellDef> {{column}} </th>
+        <th mat-header-cell mat-sort-header *matHeaderCellDef> {{column}} </th>
         <td mat-cell *matCellDef="let element"> {{element[column]}} </td>
       </ng-container>
 
@@ -18,8 +23,9 @@
                <div *ngFor="let product of element.products" class="product-row">
                   <tr>
                     <td style="width:172px;">{{product.productId}}</td>
-                    <td style="width:170px;">{{product.name}}</td>
-                    <td style="width:500px;">{{product.description}}</td>
+                    <td style="width:60px;">{{product.productAmount}} x </td>
+                    <td style="width:170px;">{{product.pm.name}}</td>
+                    <td style="width:500px;">{{product.pm.description}}</td>
                     <td>{{product.price}}</td>
                   </tr>
                </div>
@@ -37,5 +43,6 @@
       </tr>
       <tr mat-row *matRowDef="let row; columns: ['expandedDetail']" class="example-detail-row"></tr>
     </table>
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
 </div>

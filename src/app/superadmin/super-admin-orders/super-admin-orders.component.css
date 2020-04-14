@@ -1,5 +1,25 @@
-table{
+table {
   width: 100%;
+}
+
+tr.example-detail-row {
+  height: 0;
+}
+
+tr.example-element-row:not(.example-expanded-row):hover {
+  background: #ff4081;
+}
+
+tr.example-element-row:not(.example-expanded-row):active {
+  background:#ff4081;
+}
+
+.example-element-row td {
+  border-bottom-width: 0;
+}
+
+.example-element-detail {
+  overflow: hidden;
 }
 
 .mat-column-username {
@@ -91,3 +111,33 @@ table{
 .checkIconGreen{
   color:#9df092;
 }
+
+::ng-deep .mat-form-field .mat-input-element {
+  color: slategray;
+}
+::ng-deep .mat-form-field .mat-form-field-label {
+  color: slategray;
+}
+::ng-deep .mat-form-field .mat-form-field-underline {
+  background-color: slategray;
+}
+::ng-deep .mat-form-field .mat-form-field-ripple {
+  background-color: slategray;
+}
+::ng-deep .mat-form-field .mat-form-field-required-marker {
+  color: slategray;
+}
+
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  color: #ff4081;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: #ff4081;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-required-marker {
+  color: slategray;
+}
+::ng-deep .mat-form-field.mat-focused .mat-input-element {
+  color: slategray;
+}
+

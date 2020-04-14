@@ -24,6 +24,9 @@ export class ShopCartComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.shopSub = this.shopService.productChanged.subscribe(value => this.shopServiceCall(value));
+    if(this.shopService.getProduct() != null){
+      this.shopServiceCall(this.shopService.getProduct());
+    }
   }
 
   ngOnDestroy(): void {

@@ -44,7 +44,13 @@ export class AuthService implements OnDestroy {
     const token = localStorage.getItem('token');
     // Check whether the token is expired and return
     // true or false
-    return !this.jwtHelper.isTokenExpired(token);
+    if (this.jwtHelper.isTokenExpired(token)) {
+      localStorage.removeItem('token');
+      this.loggedIn.next(false);
+      return false;
+    } else {
+      return true;
+    }
   }
 
   public getUserId() {

@@ -11,7 +11,7 @@ export class HttpClientService {
   });
 
 
-  private urlStart = 'http://localhost:8080';
+  private urlStart = 'https://www.mikevanes.nl/api';
 
   constructor(private http: HttpClient) {}
 

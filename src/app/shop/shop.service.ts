@@ -60,6 +60,10 @@ export class ShopService {
     this.productChanged.next(this.productArray);
   }
 
+  public emptyCart(){
+    this.productArray = [];
+  }
+
   public getProduct(){
     return this.productArray;
   }

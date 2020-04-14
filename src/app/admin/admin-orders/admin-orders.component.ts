@@ -1,11 +1,11 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {HttpClientService} from '../../shared-services/http-client.service';
 import {AuthService} from '../../shared-services/auth/auth.service';
 import {MatTableDataSource} from '@angular/material';
 import {animate, state, style, transition, trigger} from '@angular/animations';
-import {DataSource} from '@angular/cdk/collections';
-import {Observable} from 'rxjs';
 import {ToastrService} from 'ngx-toastr';
+import {MatPaginator} from "@angular/material/paginator";
+import {MatSort} from "@angular/material/sort";
 
 
 
@@ -34,6 +34,9 @@ export interface OrderElement {
 })
 export class AdminOrdersComponent implements OnInit, OnDestroy {
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
   constructor(private httpClientService: HttpClientService, private authGuardService: AuthService, private toastr: ToastrService) {
     this.displayedColumns = ['Ordernummer', 'naam', 'email', 'Bedrijf', 'Postcode', 'Huisnummer', 'Bestel datum'];
   }
@@ -61,9 +64,15 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setElementData(conactArray) {
+  private onDataInit() {
+    this.sort.sort({ id: 'Ordernummer', start: 'desc', disableClear: false });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
+  }
+
+  private setElementData(orderArray) {
     let i = 0;
-    conactArray.forEach(dateOe => {
+    orderArray.forEach(dateOe => {
       i++;
       this.ELEMENT_DATA.push({
         products: dateOe.products, Ordernummer: dateOe.orderId, naam: dateOe.contact.name,
@@ -72,23 +81,32 @@ export class AdminOrdersComponent implements OnInit, OnDestroy {
         'Bestel datum': this.formatDate(new Date(dateOe.orderDate))});
     });
     this.dataSource = new MatTableDataSource(this.ELEMENT_DATA);
-    // this.onDataInit();
+    this.onDataInit();
   }
 
   private formatDate(date) {
 
     let month = '' + (date.getMonth() + 1);
-    let   day = '' + date.getDate()
+    let   day = '' + date.getDate();
     const year = date.getFullYear();
 
-    if (month.length < 2){
+    if (month.length < 2) {
       month = '0' + month;
     }
-    if (day.length < 2){
+    if (day.length < 2) {
       day = '0' + day;
     }
 
     return [day, month, year].join('-');
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
 

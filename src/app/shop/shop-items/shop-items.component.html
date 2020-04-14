@@ -28,7 +28,7 @@
     </section>
   </div>
 
-  <div class="row item-row" *ngIf="i+1 === products.length || products.length == 1">
+  <div class="row item-row" *ngIf="i+1 === products.length && products.length % 2 == 1 || products.length == 1 && products.length % 2 == 1">
     <section class="col-lg-4">
       <article class="product-container">
         <div class="product">
@@ -37,7 +37,7 @@
         </div>
         <div class="product-img-price-container">
           <div class="price">
-            <button value="1.50" (click)="addToCart(products[i].productId, products[i].name, products[i].description, products[i].price, products[i].categoryId, products[i].categoryName)"  value="{{formatPrice(products[i].price)}}" class="btn btn-primary btn-block order-product">€{{products[i].price}}</button>
+            <button value="1.50" (click)="addToCart(products[i].productId, products[i].name, products[i].description, products[i].price, products[i].categoryId, products[i].categoryName)"  value="{{formatPrice(products[i].price)}}" class="btn btn-primary btn-block order-product">€{{formatPrice(products[i].price)}}</button>
           </div>
         </div>
       </article>

@@ -3,6 +3,7 @@ import {MatSort, MatTableDataSource} from '@angular/material';
 import {HttpClientService} from '../../shared-services/http-client.service';
 import {AuthService} from '../../shared-services/auth/auth.service';
 import {ToastrService} from 'ngx-toastr';
+import {MatPaginator} from "@angular/material/paginator";
 
 
 
@@ -29,6 +30,7 @@ export class AdminAccountDetailsComponent implements OnInit, OnDestroy {
   private contactSub;
 
 
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private httpClientService: HttpClientService, private authGuardService: AuthService, private toastr: ToastrService) {
@@ -59,6 +61,8 @@ export class AdminAccountDetailsComponent implements OnInit, OnDestroy {
 
   private onDataInit() {
     this.sort.sort({ id: 'id', start: 'desc', disableClear: false });
+    this.dataSource.paginator = this.paginator;
+    this.dataSource.sort = this.sort;
   }
 
   private setElementData(conactArray) {
@@ -79,6 +83,15 @@ export class AdminAccountDetailsComponent implements OnInit, OnDestroy {
         this.getFormData();
       }
     });
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
 }

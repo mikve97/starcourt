@@ -7,6 +7,7 @@ import {PostalcodeService} from '../../shared-services/postalcode.service';
 import {HttpClientService} from '../../shared-services/http-client.service';
 import {ToastrService} from 'ngx-toastr';
 import {AuthService} from '../../shared-services/auth/auth.service';
+import {OrdersProductModel} from '../OrdersProduct.model';
 
 @Component({
   selector: 'app-checkout',
@@ -28,7 +29,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
   constructor(private formBuilder: FormBuilder, private shopService: ShopService, private pcService: PostalcodeService, private httpclient: HttpClientService, private activatedRoute: ActivatedRoute, private router: Router, private authService: AuthService, private toastr: ToastrService) {
     this.postalCode = this.activatedRoute.snapshot.params.postalcode;
 
-    if(localStorage.getItem('token')) {
+    if(localStorage.getItem('token') && this.authService.isAuthenticated()) {
       this.getUserInformation();
     }
   }
@@ -45,7 +46,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       notes: [''],
       ordertime: [''],
       accountemail: [''],
-      accountpassword: ['']
+      accountpassword: ['', [Validators.minLength(6)]]
     });
 
     this.loginForm = this.formBuilder.group({
@@ -124,7 +125,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
 
       orderToBeMade = {
         contactNaw: JSON.stringify(formObj),
-        products: JSON.stringify(this.products),
+        products: JSON.stringify(this.createOrdersProduct()),
         newAccount: JSON.stringify(this.getUserObject()),
 
       };
@@ -133,6 +134,7 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       //   ordertime: this.checkoutForm.get('ordertime').value,
       // }),
       this.orderSub = this.httpclient.onPost('/order/setNewOrder', orderToBeMade).subscribe((returnValue) => {
+        this.shopService.emptyCart();
         this.router.navigate(['shop/thankyou']);
 
       }, error => {
@@ -181,6 +183,14 @@ export class CheckoutComponent implements OnInit, OnDestroy {
       };
     }
     return user;
+  }
+
+  private createOrdersProduct() {
+    const productArr = [];
+    for (const product of this.products) {
+      productArr.push(new OrdersProductModel(-1, -1, product.getProductId(), product.getProductAmount(), product));
+    }
+    return productArr;
   }
 
   public login() {
