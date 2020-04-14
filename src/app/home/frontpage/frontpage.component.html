@@ -13,7 +13,7 @@
   <div class="container__item">
 
     <form [formGroup]="postalcodeForm" (ngSubmit)="order(postalcodeForm.value)" class="form">
-        <h1 style="color:white;text-align:center;font-size:2.2em;padding-bottom:15px;">Bestel de lekkerste pannekoekies<br> bij Starcourt!</h1>
+        <h1 style="color:white;text-align:center;font-size:2.2em;padding-bottom:15px;">Bestel de lekkerste pannekoekies<br> bij Pancy!</h1>
         <input type="text" name="postalcode" isPostalcode ngModel formControlName="postalcode"  class="form__field" placeholder="Voer uw postcode in."  [ngClass]="{ 'is-invalid': getForm.postalcode.errors, 'is-valid':!getForm.postalcode.errors }" />
           <div *ngIf="getForm.postalcode.errors" class="invalid-feedback invalid-home">
             <div *ngIf="getForm.postalcode.errors?.postalcodeError">Geen geldig postocde!</div>
